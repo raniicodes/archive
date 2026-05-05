@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="theme-color" content="#f7f5f0" id="themeColorMeta" />
+  <title>Archive </title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="navbar__brand" id="navHome">
+      <span class="brand-icon">◈</span>
+      <span class="brand-text">ARCHIVE</span>
+    </div>
+    <div class="navbar__actions">
+      <button class="btn btn--primary" id="createNewBtn">
+        <span class="btn-icon">+</span> New Entry
+      </button>
+      <button class="theme-toggle" id="themeToggle" title="Toggle theme">
+        <span id="themeIcon">◑</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="main-container">
+
+    <!-- VIEW: LIST -->
+    <section id="viewList" class="view">
+      <div class="list-top">
+        <div class="list-meta" id="listMeta">0 entries</div>
+        <div class="search-wrap">
+          <span class="search-icon">⌕</span>
+          <input type="text" id="searchInput" placeholder="Search entries…" autocomplete="off" />
+          <button class="clear-search" id="clearSearch" style="display:none">×</button>
+        </div>
+        <div class="tag-filters" id="tagFilters"></div>
+      </div>
+      <div id="notesList" class="notes-list-container"></div>
+    </section>
+
+    <!-- VIEW: EDITOR -->
+    <section id="viewEditor" class="view" style="display:none;">
+      <div class="view-header">
+        <button class="btn btn--ghost" id="cancelEditor">← Back</button>
+        <div class="header-actions">
+          <span class="save-hint" id="saveHint"></span>
+          <button class="btn btn--primary" id="saveNoteBtn">Save</button>
+        </div>
+      </div>
+      <div class="editor-body">
+        <input type="text" id="noteTitle" class="title-input" placeholder="Untitled entry" maxlength="120" />
+        <div class="tag-input-row">
+          <span class="tag-label">Tags:</span>
+          <input type="text" id="noteTags" class="tags-input" placeholder="work, ideas, personal…" />
+        </div>
+        <div class="editor-toolbar">
+          <button class="toolbar-btn" id="checklistToggleBtn" title="Toggle Checklist">
+            <span class="toolbar-icon">☐</span> Checklist
+          </button>
+        </div>
+
+        <!-- CHECKLIST PANEL (shown when active) -->
+        <div id="checklistPanel" class="checklist-panel" style="display:none;">
+          <div class="checklist-header">
+            <span class="checklist-label">CHECKLIST</span>
+            <div class="checklist-progress-wrap">
+              <div class="checklist-progress-bar" id="checklistProgressBar"></div>
+            </div>
+            <span class="checklist-count" id="checklistCount">0/0</span>
+          </div>
+          <ul class="checklist-items" id="checklistItems"></ul>
+          <div class="checklist-add-row">
+            <input type="text" id="checklistInput" class="checklist-input" placeholder="Add a task… then press Enter" maxlength="200" />
+            <button class="checklist-add-btn" id="checklistAddBtn">+</button>
+          </div>
+          <button class="checklist-clear-btn" id="checklistClearDone" style="display:none;">Clear completed</button>
+        </div>
+
+        <textarea id="noteContent" class="content-input" placeholder="Start writing…"></textarea>
+        <div class="attachment-controls">
+          <label class="file-label" for="fileInput">
+            <span class="attach-icon">⊕</span> Attach file or image
+            <input type="file" id="fileInput" style="display:none" accept="image/*,.pdf,.doc,.docx,.txt" />
+          </label>
+          <div id="fileStatus" class="file-status"></div>
+        </div>
+        <div class="editor-footer">
+          <span class="char-count" id="charCount">0 characters</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW: DETAIL -->
+    <section id="viewDetail" class="view" style="display:none;">
+      <div class="view-header">
+        <button class="btn btn--ghost" id="closeDetail">← Back</button>
+        <div class="header-actions">
+          <button class="btn btn--ghost" id="editBtn">Edit</button>
+          <button class="btn btn--danger" id="deleteBtn">Delete</button>
+        </div>
+      </div>
+      <article id="detailContent" class="detail-article"></article>
+    </section>
+
+  </main>
+
+  <div class="toast" id="toast"></div>
+  <div class="modal-overlay" id="deleteModal" style="display:none">
+    <div class="modal">
+      <p>Delete this entry permanently?</p>
+      <div class="modal-actions">
+        <button class="btn btn--ghost" id="cancelDelete">Cancel</button>
+        <button class="btn btn--danger" id="confirmDelete">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <span class="footer-brand">◈ All rights reserved.</span>
+    <span class="footer-copy">© <span id="footerYear"></span> raniicodes. </span>
+    <span class="footer-tagline"> your minimal notepad.</span>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>document.getElementById('footerYear').textContent = new Date().getFullYear();</script>
+</body>
+</html>
